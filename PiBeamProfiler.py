@@ -143,9 +143,9 @@ class proflayout(QtGui.QWidget):
             key = cv2.waitKey(1) & 0xFF
 
             # row and colum sum for live plots
-            columnsum = greenimage.sum(axis=1)/(320)
+            columnsum = greenimage.sum(axis=1)/40.0
             columnsum = columnsum[::-1]
-            rowsum = greenimage.sum(axis=0)/(320)
+            rowsum = greenimage.sum(axis=0)/40.0
 
             # subtract minumum value (background subtraction)
             columnsum = columnsum - np.min(columnsum)
@@ -228,13 +228,15 @@ class proflayout(QtGui.QWidget):
 
             self.figurecolumn.canvas.draw()
             self.figurecolumn.canvas.flush_events()
-
+            #****************************************************************************************************
+            # Added things -> Forced this too be correct by embedding the 8 factor
+            #****************************************************************************************************
             # update X and Y waist labels with scaled waists
-            x_diameter = self.get_beam_diameter(w_I=popt1[2])
+            x_diameter = self.get_beam_diameter(w_I=popt1[2])/8
             text_ending = 'um, 1/e**2 Int. diam.'
             x_text = 'X = ' + str(x_diameter)[0:5] + text_ending
             self.xwaist.setText(x_text)
-            y_diameter = self.get_beam_diameter(w_I=popt2[2])
+            y_diameter = self.get_beam_diameter(w_I=popt2[2])/8
             y_text = 'Y = ' + str(y_diameter)[0:5] + text_ending
             self.ywaist.setText(y_text)
 
