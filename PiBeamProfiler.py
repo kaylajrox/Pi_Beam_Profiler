@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # Copyright (C) 2015 Anthony Ransford
 #
@@ -142,9 +143,9 @@ class proflayout(QtGui.QWidget):
             key = cv2.waitKey(1) & 0xFF
 
             # row and colum sum for live plots
-            columnsum = greenimage.sum(axis=1)/40.0
+            columnsum = greenimage.sum(axis=1)/(320)
             columnsum = columnsum[::-1]
-            rowsum = greenimage.sum(axis=0)/40.0
+            rowsum = greenimage.sum(axis=0)/(320)
 
             # subtract minumum value (background subtraction)
             columnsum = columnsum - np.min(columnsum)
@@ -250,11 +251,9 @@ class proflayout(QtGui.QWidget):
     def get_beam_diameter(self, w_I):
         """
         Return the 1/e**2 beam diameter in micrometers.
-
         Parameters
         ----------
         w_I: float, the 1/e beam radius in pixels
-
         Returns
         -------
         float
@@ -267,11 +266,9 @@ class proflayout(QtGui.QWidget):
         """
         Converts a camera pixel value that could be scaled by the resolution
         to a value in micrometers.
-
         Parameters
         ----------
         value: float, value in scaled pixels
-
         Returns
         -------
         float
@@ -329,14 +326,12 @@ class proflayout(QtGui.QWidget):
     def gaussian(self, x, a, x0, w_I):
         """
         Gaussian profile function used in fitting routine.
-
         Parameters
         ----------
         x: float, abscissa
         a: float, amplitude coefficient
         x0: float, center
         w_I: float, 1/e intensity radius in pixels
-
         Returns
         -------
         float
@@ -434,3 +429,4 @@ if __name__ == "__main__":
     proflayoutwidget.show()
     proflayoutwidget.startCamera()
     sys.exit(a.exec_())
+
