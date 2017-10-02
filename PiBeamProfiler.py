@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 # Copyright (C) 2015 Anthony Ransford
 #
@@ -232,11 +231,11 @@ class proflayout(QtGui.QWidget):
             # Added things -> Forced this too be correct by embedding the 8 factor
             #****************************************************************************************************
             # update X and Y waist labels with scaled waists
-            x_diameter = self.get_beam_diameter(w_I=popt1[2])/8
+            x_diameter = self.get_beam_diameter(w_I=popt1[2])
             text_ending = 'um, 1/e**2 Int. diam.'
             x_text = 'X = ' + str(x_diameter)[0:5] + text_ending
             self.xwaist.setText(x_text)
-            y_diameter = self.get_beam_diameter(w_I=popt2[2])/8
+            y_diameter = self.get_beam_diameter(w_I=popt2[2])
             y_text = 'Y = ' + str(y_diameter)[0:5] + text_ending
             self.ywaist.setText(y_text)
 
@@ -274,15 +273,20 @@ class proflayout(QtGui.QWidget):
         Returns
         -------
         float
+
+        #************************************************************************************************************
+        # This function might be producing the change in the size
+        #************************************************************************************************************
+
         """
         # Set the resolution scaling factor.
-        if self.imageres[0] == 640:
-            resolution_factor = 2
-        else:
-            resolution_factor = 1
+       # if self.imageres[0] == 640:
+         #   resolution_factor = 2
+       # else:
+         #   resolution_factor = 1
 
-        pixels_to_um_conversion_factor = 5.875
-        return resolution_factor * pixels_to_um_conversion_factor * value
+        pixels_to_um_conversion_factor = 5.875 #1.18 possible other conversion
+        return  pixels_to_um_conversion_factor * value
 
     def createPlots(self):
 
@@ -431,4 +435,3 @@ if __name__ == "__main__":
     proflayoutwidget.show()
     proflayoutwidget.startCamera()
     sys.exit(a.exec_())
-
